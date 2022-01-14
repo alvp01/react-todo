@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const InputTodo = (props) => {
+const InputTodo = ({ addTodoProps }) => {
   const [inputText, setInputText] = useState({
     title: '',
   });
@@ -16,7 +16,7 @@ const InputTodo = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputText.title.trim()) {
-      props.addTodoProps(inputText.title);
+      addTodoProps(inputText.title);
       setInputText({
         title: '',
       });
@@ -39,11 +39,7 @@ const InputTodo = (props) => {
 };
 
 InputTodo.propTypes = {
-  addTodoProps: PropTypes.func,
-};
-
-InputTodo.defaultProps = {
-  addTodoProps: () => {},
+  addTodoProps: PropTypes.func.isRequired,
 };
 
 export default InputTodo;

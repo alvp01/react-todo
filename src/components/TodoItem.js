@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './TodoItem.module.css';
 
-const TodoItem = (props) => {
+const TodoItem = ({
+  handleChangeProps, deleteTodoProps, setUpdate, todo: { completed, id, title },
+}) => {
   const [editing, setEditing] = useState(false);
 
   const handleEditing = () => {
@@ -22,8 +24,6 @@ const TodoItem = (props) => {
     textDecoration: 'line-through',
   };
 
-  const { todo: { completed, id, title } } = props;
-
   const viewMode = {};
   const editMode = {};
 
@@ -40,9 +40,9 @@ const TodoItem = (props) => {
           type="checkbox"
           className={styles.checkbox}
           checked={completed}
-          onChange={() => props.handleChangeProps(id)}
+          onChange={() => handleChangeProps(id)}
         />
-        <button type="submit" onClick={() => props.deleteTodoProps(id)}>Delete</button>
+        <button type="submit" onClick={() => deleteTodoProps(id)}>Delete</button>
         <span style={completed ? completedStyle : null}>{title}</span>
       </div>
       <input
@@ -51,7 +51,7 @@ const TodoItem = (props) => {
         className={styles.textInput}
         value={title}
         onChange={(e) => {
-          props.setUpdate(e.target.value, id);
+          setUpdate(e.target.value, id);
         }}
         onKeyDown={handleUpdatedDone}
       />
